@@ -13,24 +13,16 @@ const defaultOptions = {
 	ext: 'png',
 };
 
-export const EmojiRender: FC<IEmojiRender> = ({
-	emoji,
-	className,
-	options = defaultOptions,
-}) => {
+export const EmojiRender: FC<IEmojiRender> = ({ emoji, className, options = defaultOptions }) => {
 	const emojiToUnicode: IEmojiToUnicode = em => {
 		let comp;
-		comp =
-			(em.charCodeAt(0) - 0xd800) * 0x400 +
-			(em.charCodeAt(1) - 0xdc00) +
-			0x10000;
+		comp = (em.charCodeAt(0) - 0xd800) * 0x400 + (em.charCodeAt(1) - 0xdc00) + 0x10000;
 		if (comp < 0) {
 			comp = em.charCodeAt(0);
 		}
 		return comp.toString(16);
 	};
-	const createUrl: ICreateUrl = (unicode, { baseUrl, ext }) =>
-		`${baseUrl}${unicode}.${ext}`;
+	const createUrl: ICreateUrl = (unicode, { baseUrl, ext }) => `${baseUrl}${unicode}.${ext}`;
 
 	return (
 		<span className={classNames(Styles.emoji, className)}>

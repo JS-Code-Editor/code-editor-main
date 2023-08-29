@@ -42,7 +42,7 @@ export const Playground = () => {
 					<CodeSandbox activeFileId={activeFile?.id} iframe={previewFrame} />
 					<iframe
 						style={{ width: '40%', border: 'none', backgroundColor: '#fff' }}
-						src='http://localhost:8080/'
+						src='http://localhost:1234/'
 						title='Code Editor Preview'
 						id='preview'
 						ref={previewFrame}

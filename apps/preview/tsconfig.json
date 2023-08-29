@@ -1,9 +1,4 @@
 {
-  "compilerOptions": {
-    "outDir": "./dist",
-    "allowJs": true,
-    "target": "es5",
-    "strictNullChecks": true
-  },
+  "extends": "tsconfig/preview.json",
   "include": ["./src/**/*"]
 }

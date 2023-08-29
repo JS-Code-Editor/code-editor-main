@@ -1,7 +1,4 @@
-import {
-	IFolder,
-	IProject,
-} from '../../../store/reducers/playgroundReducer/types';
+import { IFolder, IProject } from '../../../store/reducers/playgroundReducer/types';
 
 export interface ITransformedFile {
 	content: string;

@@ -8,7 +8,7 @@ const stylesHandler = 'style-loader';
 
 const config = {
   devServer: {
-    open: true,
+    open: false,
     host: 'localhost',
     client: {
       overlay: {

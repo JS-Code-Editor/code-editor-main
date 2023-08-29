@@ -45,9 +45,7 @@ class ErrorBoundary extends Component {
 			return (
 				<div className={classNames('container', Styles.errorBoundary)}>
 					<Typography tag='p'>{t('ERRORS.somethingWentWrong')}</Typography>
-					<Typography tag='span'>
-						{t('ERRORS.errorHandledInBoundary')}
-					</Typography>
+					<Typography tag='span'>{t('ERRORS.errorHandledInBoundary')}</Typography>
 					<code>{errorMessage}</code>
 				</div>
 			);

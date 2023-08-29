@@ -12,22 +12,11 @@ export const SideNavigationBar: FC = () => {
 		<nav className={Styles.navigationBar}>
 			<div className={Styles.mainLinks}>
 				{generateLinks(t).map(({ id, to, text, emoji }, idx) => (
-					<RenderNavItem
-						key={id}
-						to={to}
-						label={text}
-						emoji={emoji}
-						includeLabel={idx !== 0}
-					/>
+					<RenderNavItem key={id} to={to} label={text} emoji={emoji} includeLabel={idx !== 0} />
 				))}
 			</div>
 
-			<RenderNavItem
-				to='/login'
-				includeLabel
-				label={t('SideNavigationBar.signIn')}
-				emoji='👤'
-			/>
+			<RenderNavItem to='/login' includeLabel label={t('SideNavigationBar.signIn')} emoji='👤' />
 		</nav>
 	);
 };

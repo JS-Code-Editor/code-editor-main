@@ -6,16 +6,9 @@ import Styles from '../SideNavigationBar.module.scss';
 import { Typography } from '../../Typography';
 import { EmojiRender } from '../../EmojiRender';
 
-export const RenderNavItem: FC<IRenderNavItem> = ({
-	to,
-	label,
-	emoji,
-	includeLabel = false,
-}) => (
+export const RenderNavItem: FC<IRenderNavItem> = ({ to, label, emoji, includeLabel = false }) => (
 	<NavLink
-		className={navData =>
-			classNames(Styles.navItem, { [Styles.active]: navData.isActive })
-		}
+		className={navData => classNames(Styles.navItem, { [Styles.active]: navData.isActive })}
 		to={to}
 		title={label}
 	>

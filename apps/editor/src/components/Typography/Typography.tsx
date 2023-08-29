@@ -11,10 +11,7 @@ export const Typography: FC<ITypography> = ({
 	style,
 	// color = 'dark',
 }) => (
-	<Tag
-		className={classNames(Styles.typography, /* Styles[color] */ className)}
-		style={style}
-	>
+	<Tag className={classNames(Styles.typography, /* Styles[color] */ className)} style={style}>
 		{children}
 	</Tag>
 );

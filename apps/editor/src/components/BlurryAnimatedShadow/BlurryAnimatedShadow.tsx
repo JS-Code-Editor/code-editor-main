@@ -7,10 +7,7 @@ interface IBlurryAnimatedShadow {
 	height: string;
 }
 
-export const BlurryAnimatedShadow: FC<IBlurryAnimatedShadow> = ({
-	width,
-	height,
-}) => {
+export const BlurryAnimatedShadow: FC<IBlurryAnimatedShadow> = ({ width, height }) => {
 	return (
 		<div
 			className={Styles.container}

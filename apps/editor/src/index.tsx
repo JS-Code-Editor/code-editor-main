@@ -12,9 +12,7 @@ import ErrorBoundary from './components/ErrorBoundary/ErrorBoundarys';
 
 const store = setupStore();
 
-const root = ReactDOM.createRoot(
-	document.getElementById('root') as HTMLBaseElement,
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLBaseElement);
 
 root.render(
 	<ErrorBoundary>
