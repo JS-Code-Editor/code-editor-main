@@ -1,0 +1,36 @@
+@import "mixins";
+
+// less than < 576px
+.container {
+  padding: 0 1rem;
+  margin-right: auto;
+  margin-left: auto;
+
+  // 576px window width and more
+  @include sm {
+    padding: 0 2rem;
+  }
+
+  // 768px window width and more
+  @include md {
+    padding: 0 3rem;
+  }
+
+  // 992px window width and more
+  @include lg {
+    padding: 0 4rem;
+    max-width: 1100px;
+  }
+
+  // 1200px window width and more
+  @include xl {
+    padding: 0 4rem;
+    max-width: 1100px;
+  }
+
+  // 1400px window width and more
+  //@include rwd(1400) {
+    //margin-bottom: 20px;
+    //margin-top: 20px;
+  //}
+}

@@ -1,0 +1,13 @@
+{
+	"SideNavigationBar": {
+		"files": "Файлы",
+		"help": "Помощь",
+		"guide": "Guide",
+		"settings": "Settings",
+		"signIn": "Sign In"
+	},
+	"ERRORS": {
+		"somethingWentWrong": "Something went wrong",
+		"errorHandledInBoundary": "The error was handled in your ErrorBoundary component"
+	}
+}

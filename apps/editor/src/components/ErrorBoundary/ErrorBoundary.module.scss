@@ -1,0 +1,17 @@
+@import "../../mainStyles/variables";
+
+.errorBoundary {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  height: 100vh;
+  text-align: center;
+
+  code {
+    color: red;
+    font-weight: normal;
+    font-size: var(--font-size-sm);
+  }
+}

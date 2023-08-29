@@ -1,0 +1,32 @@
+@import '../../../../mainStyles/variables';
+
+.menuContainer {
+  display: flex;
+  padding: 0;
+  list-style-type: none;
+  animation: fade-in 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+
+  li {
+    &:not(:last-child) {
+      margin-right: 0.5rem;
+    }
+
+    i:before {
+      color: $gray-300;
+      font-size: var(--font-size-sm);
+    }
+
+    i:hover:before {
+      color: $primary-teal;
+    }
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

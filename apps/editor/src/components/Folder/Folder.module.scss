@@ -1,0 +1,70 @@
+@import '../../mainStyles/variables';
+
+.folderTree {
+  list-style: none;
+  user-select: none;
+  padding-left: 0;
+
+  .folder,
+  .file {
+    padding: 0.5rem 0.5rem;
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    border-radius: $border-radius-6;
+    transition: background-color 0.2s ease-in-out;
+
+    display: flex;
+    justify-content: space-between;
+    gap: 0.25rem;
+
+    &:hover {
+      background-color: $dark-teal;
+      div {
+        color: $primary-teal;
+        i:before {
+          color: $primary-teal;
+        }
+      }
+    }
+  }
+
+  .folder {
+    margin-left: -0.1rem;
+
+    .folderName {
+      .iconExpandFolder {
+        padding-right: 0.5rem;
+        margin-left: 0.1rem;
+        font-size: var(--font-size-xxs);
+
+        &:before {
+          display: inline-block;
+          transform: rotate(0deg);
+          transition: transform 0.16s ease-in-out;
+        }
+
+        &.opened:before {
+          transform: rotate(90deg);
+        }
+      }
+
+      .iconFolder {
+        padding-right: 0.375rem;
+      }
+    }
+  }
+
+  .selectedFile {
+    background-color: $gray-800;
+  }
+
+  .fileName {
+    display: flex;
+    align-items: center;
+
+    .iconFile {
+      padding-right: 0.5rem;
+      font-size: var(--font-size-m);
+    }
+  }
+}

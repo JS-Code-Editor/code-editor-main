@@ -1,0 +1,69 @@
+@import "mixins";
+
+:root {
+  /* set base values */
+  --text-base-size: 0.8rem;
+  --text-scale-ratio: 1;
+
+  /* type scale */
+  --font-size-xxxxxxxxs: calc(.0625 * var(--text-base-size) * var(--text-scale-ratio)); //1rem=16px > 1px
+  --font-size-xxxxxxxs:  calc(0.125 * var(--text-base-size) * var(--text-scale-ratio)); //1rem=16px > 2px
+  --font-size-xxxxxxs:   calc(0.1875* var(--text-base-size) * var(--text-scale-ratio)); //1rem=16px > 3px
+  --font-size-xxxxxs:    calc(0.25  * var(--text-base-size) * var(--text-scale-ratio)); //1rem=16px > 4px
+  --font-size-xxxxs:     calc(0.375 * var(--text-base-size) * var(--text-scale-ratio)); //1rem=16px > 6px
+  --font-size-xxxs:      calc(.5    * var(--text-base-size) * var(--text-scale-ratio)); //1rem=16px > 8px
+  --font-size-xxs:       calc(0.625 * var(--text-base-size) * var(--text-scale-ratio)); //1rem=16px > 10px
+  --font-size-xs:        calc(0.75  * var(--text-base-size) * var(--text-scale-ratio)); //1rem=16px > 12px
+  --font-size-sm:        calc(0.875 * var(--text-base-size) * var(--text-scale-ratio)); //1rem=16px > 14px
+  --font-size-m:         calc(1     * var(--text-base-size) * var(--text-scale-ratio)); //1rem=16px > 16px
+  --font-size-md:        calc(1.125 * var(--text-base-size) * var(--text-scale-ratio)); //1rem=16px > 18px
+  --font-size-lg:        calc(1.25  * var(--text-base-size) * var(--text-scale-ratio)); //1rem=16px > 20px
+  --font-size-xl:        calc(1.5   * var(--text-base-size) * var(--text-scale-ratio)); //1rem=16px > 24px
+  --font-size-xxl:       calc(1.875 * var(--text-base-size) * var(--text-scale-ratio)); //1rem=16px > 30px
+  --font-size-xxxl:      calc(2.125 * var(--text-base-size) * var(--text-scale-ratio)); //1rem=16px > 34px
+  --font-size-xxxxl:     calc(3     * var(--text-base-size) * var(--text-scale-ratio)); //1rem=16px > 48px
+  --font-size-xxxxxl:    calc(3.75  * var(--text-base-size) * var(--text-scale-ratio)); //1rem=16px > 60px
+  --font-size-xxxxxxl:   calc(4.5   * var(--text-base-size) * var(--text-scale-ratio)); //1rem=16px > 72px
+  --font-size-xxxxxxxl:  calc(5.25  * var(--text-base-size) * var(--text-scale-ratio)); //1rem=16px > 84px
+  --font-size-xxxxxxxxl: calc(6     * var(--text-base-size) * var(--text-scale-ratio)); //1rem=16px > 96px
+}
+
+// 576px window width and more (576 - 768)
+@include sm {
+  :root {
+    --text-base-size: 0.85rem;
+    --text-scale-ratio: 1;
+  }
+}
+
+// 768px window width and more (768 - 992)
+@include md {
+  :root {
+    --text-base-size: 0.9rem;
+    --text-scale-ratio: 1;
+  }
+}
+
+// 992px window width and more ( >= 1200)
+@include lg {
+  :root {
+    --text-base-size: 1rem;
+    --text-scale-ratio: 1;
+  }
+}
+
+// 1200px window width and more ( >= Infinity)
+@include xl {
+  :root {
+    --text-base-size: 1rem;
+    --text-scale-ratio: 1;
+  }
+}
+
+/* utility classes */
+.truncate {
+  // truncate text if it exceeds parent
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,0 +1,24 @@
+{
+  "childrenFolders": [
+    {
+      "name": "src",
+      "files": [
+        {
+          "name": "sum.js",
+          "content": "export const sum = (a, b) => a + b"
+        },
+        {
+          "name": "vars.js",
+          "content": "export const a = 4\nexport const b = 5"
+        }
+      ],
+      "childrenFolders": []
+    }
+  ],
+  "files": [
+    {
+      "name": "index.js",
+      "content": "import { sum } from './src/sum.js'\nimport { a, b } from './src/vars.js'\n\nconsole.log(sum(a, b))"
+    }
+  ]
+}

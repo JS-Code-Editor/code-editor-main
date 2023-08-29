@@ -1,0 +1,207 @@
+@import "../../../../mainStyles/mixins";
+@import "../../../../mainStyles/variables";
+
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  z-index: 1;
+
+  .logotype {
+    position: relative;
+    top: 0;
+    left: 0;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    transform-origin: center bottom;
+    animation: 0.75s cubic-bezier(0, 0, 0.2, 1) 0.5s 1 normal both running blurry;
+    z-index: 2;
+
+    img {
+      position: relative;
+      width: 6.875rem;
+      height: 6.875rem;
+
+      z-index: 3;
+    }
+
+    .backgroundBlurryShadow_1 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3.75rem;
+      height: 3.75rem;
+      border-radius: 50%;
+      filter: blur(2rem);
+      background: $shadow-blue;
+      transform-origin: center bottom;
+      animation: 3.5s linear 0s infinite normal none running rotation;
+
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: auto;
+        right: 50%;
+        width: 3.75rem;
+        height: 3.75rem;
+        background: $shadow-pink;
+        transform-origin: center bottom;
+      }
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 3.75rem;
+        height: 3.75rem;
+        border-radius: 50%;
+        background: $shadow-light-blue;
+        transform-origin: center bottom;
+      }
+    }
+    .backgroundBlurryShadow_2 {
+      position: absolute;
+      top: 0.5rem;
+      left: calc(50% - 1rem);
+      width: 3.75rem;
+      height: 3.75rem;
+      border-radius: 50%;
+      filter: blur(2rem);
+      background: $shadow-blue;
+      transform-origin: center bottom;
+      animation: 3.5s linear 0s infinite reverse none running rotation;
+
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: auto;
+        right: 50%;
+        width: 3.75rem;
+        height: 3.75rem;
+        border-radius: 50%;
+        background: $shadow-pink;
+        transform-origin: center bottom;
+      }
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 3.75rem;
+        height: 3.75rem;
+        border-radius: 50%;
+        background: $shadow-light-blue;
+        transform-origin: center bottom;
+      }
+    }
+  }
+
+  .descriptions {
+    text-align: center;
+
+    p {
+      width: 18rem;
+      margin: 0 auto;
+
+      font-weight: 500;
+      white-space: nowrap;
+      font-size: var(--font-size-xxl);
+
+      overflow: hidden;
+      border-right: 0.15rem solid $gray-400;
+      animation: typing 1.25s steps(22, end), blink-caret 0.75s step-end infinite;
+    }
+
+    h1 {
+      margin: 1.5rem 0 1rem 0;
+      font-weight: bold;
+      font-size: var(--font-size-xxxxxl);
+
+      animation: text-focus-in .35s cubic-bezier(0.550, 0.085, 0.680, 0.530) both 0.75s;
+    }
+
+    span {
+      font-weight: normal;
+      font-size: var(--font-size-xl);
+      color: $gray-400;
+
+      animation: text-focus-in .75s cubic-bezier(0.550, 0.085, 0.680, 0.530) both 1s;
+    }
+  }
+
+  .button {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-top: 15vh;
+  }
+
+  .version {
+    margin-top: 1rem;
+
+    span {
+      font-weight: normal;
+      font-size: var(--font-size-sm);
+      color: $gray-500;
+    }
+  }
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 26% }
+}
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: $gray-400; }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes blurry {
+  0% {
+    opacity: 0;
+    transform: scale(0.75);
+    filter: blur(2rem);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes text-focus-in {
+  0% {
+    transform: translateY(5rem);
+    -webkit-filter: blur(0.5rem);
+    filter: blur(0.5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    -webkit-filter: blur(0);
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+

@@ -1,0 +1,29 @@
+// BOLD
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('../assets/fonts/sf-pro-display/SFProDisplay-Bold.woff2') format('woff2'),
+  url('../assets/fonts/sf-pro-display/SFProDisplay-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+// MEDIUM
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('../assets/fonts/sf-pro-display/SFProDisplay-Medium.woff2') format('woff2'),
+  url('../assets/fonts/sf-pro-display/SFProDisplay-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+// REGULAR
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('../assets/fonts/sf-pro-display/SFProDisplay-Regular.woff2') format('woff2'),
+  url('../assets/fonts/sf-pro-display/SFProDisplay-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

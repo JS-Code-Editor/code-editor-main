@@ -1,0 +1,57 @@
+@import "../../mainStyles/variables";
+
+.button {
+  padding: 0 1rem;
+
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: $border-radius-6;
+
+  white-space: nowrap;
+  font-size: var(--font-size-m);
+  font-weight: $font-weight-Medium;
+
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+
+  // Colors
+  &.darkGray {
+    color: $white;
+    background-color: $gray-900;
+  }
+
+  // Width
+  &.x-sm {
+    //min-width: 8rem;
+    //width: 8rem;
+  }
+
+  &.sm {
+    //min-width: 10rem;
+    //width: 10rem;
+  }
+
+  &.md {
+    //min-width: 10rem;
+    //width: 10rem;
+  }
+
+  &.lg {
+    //min-width: 13rem;
+    //width: 13rem;
+  }
+
+  &.x-lg {
+    min-width: 18rem;
+    width: 18rem;
+  }
+
+  // Height
+  &.fat {
+    height: 3rem;
+  }
+
+  &.thin {
+    height: 2rem;
+  }
+}

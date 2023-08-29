@@ -1,0 +1,20 @@
+@import "../../mainStyles/variables";
+
+.playgroundContainer {
+  display: flex;
+
+  .folderStructure {
+    width: $folderStructureWidth;
+    height: 100%;
+    padding: .5rem;
+    overflow: scroll;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+
+  .playground {
+    width: calc(100% - $folderStructureWidth);
+    overflow: hidden;
+    background: $gray-800;
+  }
+}

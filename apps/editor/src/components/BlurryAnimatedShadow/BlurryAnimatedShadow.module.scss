@@ -1,0 +1,147 @@
+@import "../../mainStyles/variables";
+
+.container {
+  position: relative;
+  //top: 0;
+  //left: 0;
+  animation: 500ms cubic-bezier(0, 0, 0.2, 1) 750ms 1 normal both running blurry;
+  transform-origin: center bottom;
+
+  .firstCircle {
+    position: absolute;
+    top: 0;
+    left: 6.25rem;
+    width: 12.5rem;
+    height: 12.5rem;
+    border-radius: 50%;
+    filter: blur(6.25rem);
+    background: $shadow-blue;
+    transform-origin: center bottom;
+    animation: 5s linear 0s infinite normal none running rotation;
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: auto;
+      right: 50%;
+      width: 12.5rem;
+      height: 12.5rem;
+      background: $shadow-pink;
+      transform-origin: center bottom;
+    }
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 12.5rem;
+      height: 12.5rem;
+      border-radius: 50%;
+      background: $shadow-light-blue;
+      transform-origin: center bottom;
+    }
+  }
+
+  .secondCircle {
+      position: absolute;
+      top: -6.25rem;
+      left: calc(50% - 6.25rem);
+      width: 12.5rem;
+      height: 12.5rem;
+      border-radius: 50%;
+      filter: blur(6.25rem);
+      background: $shadow-blue;
+      transform-origin: center bottom;
+      animation: 6s linear 0s infinite reverse none running rotation;
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: auto;
+      right: 50%;
+      width: 12.5rem;
+      height: 12.5rem;
+      border-radius: 50%;
+      background: $shadow-pink;
+      transform-origin: center bottom;
+    }
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 12.5rem;
+      height: 12.5rem;
+      border-radius: 50%;
+      background: $shadow-light-blue;
+      transform-origin: center bottom;
+    }
+  }
+
+  .thirdCircle {
+      position: absolute;
+      top: 0;
+      left: auto;
+      right: 6.25rem;
+      width: 12.5rem;
+      height: 12.5rem;
+      border-radius: 50%;
+      filter: blur(6.25rem);
+      background: $shadow-blue;
+      transform-origin: center bottom;
+      animation: 5s linear 0s infinite normal none running rotation;
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: auto;
+      right: 50%;
+      width: 12.5rem;
+      height: 12.5rem;
+      border-radius: 50%;
+      background: $shadow-pink;
+      transform-origin: center bottom;
+    }
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 12.5rem;
+      height: 12.5rem;
+      border-radius: 50%;
+      background: $shadow-light-blue;
+      transform-origin: center bottom;
+    }
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes blurry {
+  0% {
+    opacity: 0;
+    transform: scale(0.75);
+    filter: blur(32px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0px);
+  }
+}
