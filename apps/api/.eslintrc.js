@@ -1,3 +1,8 @@
 module.exports = {
-  extends: ['custom/api'],
+  ...require('eslint-config-custom/api'),
+  parserOptions: {
+    root: true,
+    tsconfigRootDir: __dirname,
+    project: ['./tsconfig.json']
+  }
 };

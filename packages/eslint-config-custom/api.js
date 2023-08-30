@@ -1,22 +1,14 @@
-// const { resolve } = require("node:path");
-//
-// const project = resolve(process.cwd(), "tsconfig.json");
-
 module.exports = {
     env: {
         browser: true,
         commonjs: true,
         es2021: true,
     },
-    extends: [
-        'eslint-config-standard',
-        // "eslint-config-turbo"
-    ].map(require.resolve),
-    ignorePatterns: ['node_modules', 'public', 'dist'],
+    extends: ['standard'],
+    ignorePatterns: ['node_modules', 'public', 'dist', '.turbo'],
     parserOptions: {
         ecmaVersion: 'latest',
     },
-    // add rules configurations here
     rules: {
         'no-console': 'off',
         'consistent-return': 'off',
@@ -33,4 +25,4 @@ module.exports = {
         'space-before-function-paren': 'off',
         'no-unused-vars': 'warn',
     },
-};
+}

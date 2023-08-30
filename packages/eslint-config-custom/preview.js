@@ -1,31 +1,20 @@
-const { resolve } = require("node:path");
-
-const project = resolve(process.cwd(), "tsconfig.json");
-
-module.exports = {
-    extends: [
-        "eslint-config-standard-with-typescript",
-        "eslint-config-turbo",
-    ].map(require.resolve),
-    env: {
+module.exports ={
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "env": {
         "browser": true,
         "es2021": true
     },
-    parserOptions: {
+    "extends": "standard-with-typescript",
+    "overrides": [
+    ],
+    "ignorePatterns": ["webpack.config.js", "node_modules", "dist", '.turbo'],
+    "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module",
-        project,
+        "project": ["./tsconfig.json"]
     },
-    settings: {
-        "import/resolver": {
-            typescript: {
-                project,
-            },
-        },
-    },
-    ignorePatterns: ["node_modules/", "dist/", "webpack.config.js"],
-    // add rules configurations here
-    rules: {
+    "rules": {
         "@typescript-eslint/no-unused-vars": "warn",
         "@typescript-eslint/ban-ts-comment": "warn",
         "@typescript-eslint/semi": "off",
@@ -36,4 +25,4 @@ module.exports = {
         "@typescript-eslint/comma-dangle": "off",
         "@typescript-eslint/space-before-function-paren": "off"
     }
-};
+}
