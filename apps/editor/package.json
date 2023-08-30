@@ -33,7 +33,7 @@
 		"eject": "react-scripts eject",
 		"cz": "git-cz",
 		"prepare": "husky install",
-		"lint": "eslint --ignore-path .gitignore --ext .js,.jsx,.ts,.tsx .",
+		"lint": "eslint src --fix",
 		"check-types": "tsc",
 		"format": "prettier --ignore-path .gitignore --write \"**/*.{js,jsx,ts,tsx,json}\"",
 		"check-format": "yarn run prettier -- --list-different",

@@ -1,6 +1,6 @@
 {
 	"extends": "tsconfig/editor.json",
-	"include": ["./src"],
+	"include": ["./src", ".eslintrc.js"],
 	"compilerOptions": {
 		"baseUrl": "src"
 	}
