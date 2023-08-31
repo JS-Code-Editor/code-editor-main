@@ -7,7 +7,15 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,json,js,jsx}\"",
     "prepare": "husky install"
   },
-
+  "lint-staged": {
+    "apps/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.json": [
+      "prettier --write"
+    ]
+  },
   "devDependencies": {
     "eslint": "^8.47.0",
     "husky": "^8.0.3",
