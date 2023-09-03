@@ -2,6 +2,7 @@
 	"extends": "tsconfig/editor.json",
 	"include": ["./src", ".eslintrc.js"],
 	"compilerOptions": {
-		"baseUrl": "src"
+		"baseUrl": "src",
+		"types": ["webpack-env"]
 	}
 }

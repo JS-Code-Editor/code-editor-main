@@ -1,7 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { useAppDispatch } from '../../hooks';
+import { useRef } from 'react';
 import { CodeSandbox, FileNavigation, Folder, MainPageWrapper, Menu } from '../../components';
-import { playgroundActions } from '../../store/reducers';
 import { TREE_INDENTATION } from '../../utils/constants/constants';
 import { usePlayground } from './hooks/usePlayground';
 
@@ -9,20 +7,8 @@ import Styles from './Playground.module.scss';
 
 export const Playground = () => {
 	const previewFrame = useRef<HTMLIFrameElement>(null);
-	const dispatch = useAppDispatch();
 
-	const { initialProject, loadInitialProject, isSuccess, data, menuItems, activeFile } =
-		usePlayground();
-
-	useEffect(() => {
-		loadInitialProject();
-	}, [loadInitialProject]);
-
-	useEffect(() => {
-		if (isSuccess && data) {
-			dispatch(playgroundActions.setInitialProject(data));
-		}
-	}, [data, dispatch, isSuccess]);
+	const { initialProject, menuItems, activeFile } = usePlayground();
 
 	return (
 		<MainPageWrapper className={Styles.playgroundContainer}>

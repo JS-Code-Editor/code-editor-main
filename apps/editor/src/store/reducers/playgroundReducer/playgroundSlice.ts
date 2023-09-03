@@ -1,12 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { cloneDeep } from 'lodash';
 import { nanoid } from 'nanoid';
 import { IFile, IFolder, IPlaygroundSlice, IProjects } from './types';
 
 const initialState: IPlaygroundSlice = {
 	projects: {},
 	selectedFiles: [],
-	activeProject: '',
+	activeProject: null,
 };
 
 const playgroundSlice = createSlice({
@@ -14,40 +13,9 @@ const playgroundSlice = createSlice({
 	initialState,
 	reducers: {
 		setInitialProject: (state, { payload: projects }: PayloadAction<IProjects>) => {
-			const copiedProjects = cloneDeep(projects);
-			const projectIds = Object.keys(copiedProjects);
-
-			projectIds.forEach(projectId => {
-				const folderIds = Object.keys(copiedProjects[projectId].folders);
-				folderIds.forEach(folderId => {
-					copiedProjects[projectId].folders[folderId].expanded = false;
-				});
-				const rootFolderId = projects[projectId].rootFolder;
-				copiedProjects[projectId].folders[rootFolderId].expanded = true;
-			});
-			state.projects[projectIds[0]] = copiedProjects[projectIds[0]];
+			const projectIds = Object.keys(projects);
+			state.projects[projectIds[0]] = projects[projectIds[0]];
 			state.activeProject = projectIds[0];
-
-			// css and html files
-			const activeProject = state.projects[state.activeProject];
-			const rootFolder = activeProject.rootFolder;
-
-			const html: IFile = {
-				name: 'index.html',
-				content: '<h1>Change me!</h1>',
-				id: nanoid(),
-				parentFolder: rootFolder,
-			};
-			const css: IFile = {
-				name: 'index.css',
-				content: 'html {\n\tfont-family: sans-serif;\n}\n\nh1 {\n\tcolor: green;\n}',
-				id: nanoid(),
-				parentFolder: rootFolder,
-			};
-
-			activeProject.folders[rootFolder].files.push(html.id, css.id);
-			activeProject.files[html.id] = html;
-			activeProject.files[css.id] = css;
 		},
 		addFile: (
 			state,
@@ -64,13 +32,13 @@ const playgroundSlice = createSlice({
 				name: fileName,
 				parentFolder: parentFolderId,
 			};
-			const currentProject = state.projects[state.activeProject];
+			const currentProject = state.projects[state.activeProject as string];
 
 			currentProject.files[newFile.id] = newFile;
 			currentProject.folders[parentFolderId].files.push(newFile.id);
 		},
 		deleteFile: (state, { payload: { fileId } }: PayloadAction<{ fileId: string }>) => {
-			const currentProject = state.projects[state.activeProject];
+			const currentProject = state.projects[state.activeProject as string];
 			const currentFile = currentProject.files[fileId];
 			const currentFolder = currentProject.folders[currentFile.parentFolder];
 			currentFolder.files = currentFolder.files.filter(childId => childId !== fileId);
@@ -95,7 +63,7 @@ const playgroundSlice = createSlice({
 				parentFolder: parentFolderId,
 				expanded: false,
 			};
-			const currentProject = state.projects[state.activeProject];
+			const currentProject = state.projects[state.activeProject as string];
 
 			currentProject.folders[newFolder.id] = newFolder;
 			currentProject.folders[parentFolderId].childrenFolders.push(newFolder.id);
@@ -108,7 +76,7 @@ const playgroundSlice = createSlice({
 				folderId: string;
 			}>,
 		) => {
-			const currentProject = state.projects[state.activeProject];
+			const currentProject = state.projects[state.activeProject as string];
 
 			const deleteRecursively = (folId: string) => {
 				const folder = currentProject.folders[folId];
@@ -139,8 +107,9 @@ const playgroundSlice = createSlice({
 				folderId: string;
 			}>,
 		) => {
-			const expandedValue = state.projects[state.activeProject].folders[folderId].expanded;
-			state.projects[state.activeProject].folders[folderId].expanded = !expandedValue;
+			const expandedValue =
+				state.projects[state.activeProject as string].folders[folderId].expanded;
+			state.projects[state.activeProject as string].folders[folderId].expanded = !expandedValue;
 		},
 		addSelectedFile: (state, { payload }: PayloadAction<string>) => {
 			const exists = state.selectedFiles.find(selected => selected.id === payload);
@@ -166,14 +135,14 @@ const playgroundSlice = createSlice({
 				payload: { folderId, newFolderName },
 			}: PayloadAction<{ folderId: string; newFolderName: string }>,
 		) => {
-			const currentFolder = state.projects[state.activeProject].folders[folderId];
+			const currentFolder = state.projects[state.activeProject as string].folders[folderId];
 			currentFolder.name = newFolderName;
 		},
 		editFileName: (
 			state,
 			{ payload: { fileId, newFilename } }: PayloadAction<{ fileId: string; newFilename: string }>,
 		) => {
-			const currentFile = state.projects[state.activeProject].files[fileId];
+			const currentFile = state.projects[state.activeProject as string].files[fileId];
 			currentFile.name = newFilename;
 		},
 		removeSelectedFile: (state, { payload }: PayloadAction<string>) => {
@@ -188,7 +157,8 @@ const playgroundSlice = createSlice({
 			state,
 			{ payload }: PayloadAction<{ fileId: string; newContent: string }>,
 		) => {
-			state.projects[state.activeProject].files[payload.fileId].content = payload.newContent;
+			state.projects[state.activeProject as string].files[payload.fileId].content =
+				payload.newContent;
 		},
 	},
 });

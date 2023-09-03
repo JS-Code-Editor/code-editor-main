@@ -1,15 +1,19 @@
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { useLazyGetInitialProjectQuery } from '../../../services';
 import { playgroundActions } from '../../../store/reducers';
+import { useEffect } from 'react';
+import { initialProjectData } from '../../../utils/constants/initialProject';
+import { IProject } from '../../../store/reducers/playgroundReducer/types';
 
 export const usePlayground = () => {
 	const dispatch = useAppDispatch();
-	const { projects, selectedFiles } = useAppSelector(s => s.playgroundReducer);
+	const { projects, selectedFiles, activeProject } = useAppSelector(s => s.playgroundReducer);
 
-	const [loadInitialProject, { data, isSuccess }] = useLazyGetInitialProjectQuery();
-
-	const initialProject = projects[Object.keys(projects)[0]]; // maybe projects[activeProject] ???
+	const initialProject = activeProject && projects[activeProject];
 	const activeFile = selectedFiles.find(file => file.isActive);
+
+	useEffect(() => {
+		dispatch(playgroundActions.setInitialProject(initialProjectData));
+	}, []);
 
 	const menuItems = [
 		{
@@ -20,7 +24,7 @@ export const usePlayground = () => {
 					dispatch(
 						playgroundActions.addFile({
 							name: fileName,
-							parentFolderId: initialProject.rootFolder,
+							parentFolderId: (initialProject as IProject).rootFolder,
 						}),
 					);
 				}
@@ -34,7 +38,7 @@ export const usePlayground = () => {
 					dispatch(
 						playgroundActions.addFolder({
 							name: folderName,
-							parentFolderId: initialProject.rootFolder,
+							parentFolderId: (initialProject as IProject).rootFolder,
 						}),
 					);
 				}
@@ -44,9 +48,6 @@ export const usePlayground = () => {
 
 	return {
 		initialProject,
-		loadInitialProject,
-		isSuccess,
-		data,
 		menuItems,
 		activeFile,
 	};

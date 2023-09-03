@@ -19,7 +19,9 @@ module.exports = {
     "eslint-config-prettier"
   ],
   "rules": {
-    "no-debugger": "off"
+    "no-debugger": "off",
+    "@typescript-eslint/ban-ts-comment": "warn",
+    "@typescript-eslint/prefer-namespace-keyword": "off"
   },
   "env": {
     "browser": true

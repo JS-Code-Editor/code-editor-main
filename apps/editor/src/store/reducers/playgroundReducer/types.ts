@@ -33,5 +33,5 @@ export interface ISelectedFile {
 export interface IPlaygroundSlice {
 	projects: IProjects;
 	selectedFiles: ISelectedFile[];
-	activeProject: string;
+	activeProject: null | string;
 }

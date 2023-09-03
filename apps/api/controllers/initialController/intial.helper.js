@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 
 const initialFolders = JSON.parse(
-  fs.readFileSync(path.join(process.cwd(), 'utils', 'initialFolders.json'))
+  fs.readFileSync(path.join(process.cwd(), 'utils', 'initialFolders.json')),
 );
 
 exports.getInitialProject = () => {
@@ -22,6 +22,7 @@ exports.getInitialProject = () => {
         parentFolder: null,
         childrenFolders: [],
         files: [],
+        expanded: true,
         id: currentFolderId,
       };
       rootFolderId = currentFolderId;
@@ -31,6 +32,7 @@ exports.getInitialProject = () => {
         parentFolder: parentId,
         childrenFolders: [],
         files: [],
+        expanded: false,
         id: currentFolderId,
       };
       result.folders[parentId].childrenFolders.push(currentFolderId);

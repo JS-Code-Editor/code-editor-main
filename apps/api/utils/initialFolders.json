@@ -19,6 +19,14 @@
     {
       "name": "index.js",
       "content": "import { sum } from './src/sum.js'\nimport { a, b } from './src/vars.js'\n\nconsole.log(sum(a, b))"
+    },
+    {
+      "name": "index.html",
+      "content": "<h1>Change me!</h1>"
+    },
+    {
+      "name": "index.css",
+      "content": "html {\n\tfont-family: sans-serif;\n}\n\nh1 {\n\tcolor: green;\n}"
     }
   ]
 }

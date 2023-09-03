@@ -19,7 +19,7 @@ export const CodeSandbox: FC<ICodeSandboxProps> = ({ activeFileId, iframe }) => 
 
 	const dispatch = useAppDispatch();
 
-	const file = activeFileId && projects[activeProject].files[activeFileId];
+	const file = activeProject && activeFileId && projects[activeProject].files[activeFileId];
 
 	useEffect(() => {
 		if (monaco) {
@@ -29,7 +29,7 @@ export const CodeSandbox: FC<ICodeSandboxProps> = ({ activeFileId, iframe }) => 
 	}, [monaco]);
 
 	useEffect(() => {
-		const currentProject = projects[activeProject];
+		const currentProject = projects[activeProject as string];
 		if (currentProject) {
 			const transformedFiles = transformProjectFiles(currentProject);
 

@@ -63,8 +63,9 @@
 		"@types/react": "^18.0.26",
 		"@types/react-dom": "^18.0.9",
 		"@types/react-redux": "^7.1.23",
-		"yarn-run-all": "^3.1.1",
+		"@types/webpack-env": "^1.18.1",
 		"eslint-config-custom": "*",
-		"tsconfig": "*"
+		"tsconfig": "*",
+		"yarn-run-all": "^3.1.1"
 	}
 }
