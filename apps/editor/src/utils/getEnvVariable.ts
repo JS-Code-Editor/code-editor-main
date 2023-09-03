@@ -1,4 +1,4 @@
-type TVariable = 'BASE_URL' | '?';
+type TVariable = 'BASE_URL' | 'PREVIEW_URL';
 type IGetEnvVariables = (varName: TVariable) => string | undefined;
 
 export const getEnvVariable: IGetEnvVariables = envName => {

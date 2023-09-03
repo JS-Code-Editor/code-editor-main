@@ -4,6 +4,9 @@ import { TREE_INDENTATION } from '../../utils/constants/constants';
 import { usePlayground } from './hooks/usePlayground';
 
 import Styles from './Playground.module.scss';
+import { getEnvVariable } from '../../utils/getEnvVariable';
+
+const previewUrl = getEnvVariable('PREVIEW_URL');
 
 export const Playground = () => {
 	const previewFrame = useRef<HTMLIFrameElement>(null);
@@ -28,7 +31,7 @@ export const Playground = () => {
 					<CodeSandbox activeFileId={activeFile?.id} iframe={previewFrame} />
 					<iframe
 						style={{ width: '40%', border: 'none', backgroundColor: '#fff' }}
-						src='http://localhost:1234/'
+						src={previewUrl}
 						title='Code Editor Preview'
 						id='preview'
 						ref={previewFrame}
