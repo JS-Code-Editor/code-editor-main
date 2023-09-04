@@ -11,9 +11,10 @@ import { transformProjectFiles } from './helper/CodeSandbox.helper';
 interface ICodeSandboxProps {
 	activeFileId?: string;
 	iframe: RefObject<HTMLIFrameElement>;
+	isPreviewLoaded: boolean;
 }
 
-export const CodeSandbox: FC<ICodeSandboxProps> = ({ activeFileId, iframe }) => {
+export const CodeSandbox: FC<ICodeSandboxProps> = ({ activeFileId, iframe, isPreviewLoaded }) => {
 	const monaco = useMonaco();
 	const { projects, activeProject } = useAppSelector(s => s.playgroundReducer);
 
@@ -30,9 +31,9 @@ export const CodeSandbox: FC<ICodeSandboxProps> = ({ activeFileId, iframe }) => 
 
 	useEffect(() => {
 		const currentProject = projects[activeProject as string];
-		if (currentProject) {
+		if (currentProject && isPreviewLoaded) {
 			const transformedFiles = transformProjectFiles(currentProject);
-
+			console.log(transformedFiles);
 			iframe.current?.contentWindow?.postMessage(
 				{
 					files: transformedFiles,
@@ -41,7 +42,7 @@ export const CodeSandbox: FC<ICodeSandboxProps> = ({ activeFileId, iframe }) => 
 				'*',
 			);
 		}
-	}, [activeProject, iframe, projects]);
+	}, [file, isPreviewLoaded]);
 
 	const language = useMemo(() => {
 		if (file) {
