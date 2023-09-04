@@ -13,8 +13,6 @@ const defaultOptions = {
 	ext: 'png',
 };
 
-const filePattern = (fileName: string) => new RegExp(`\\b${fileName}\\b`);
-
 export const EmojiRender: FC<IEmojiRender> = ({ emoji, className, options = defaultOptions }) => {
 	const emojiToUnicode: IEmojiToUnicode = em => {
 		let comp;
@@ -25,25 +23,7 @@ export const EmojiRender: FC<IEmojiRender> = ({ emoji, className, options = defa
 		return comp.toString(16);
 	};
 
-	const getImageSrc = (unicode: string): string | undefined => {
-		const imageFiles = require.context(
-			'../../../public/static/emoji/png',
-			false,
-			/\.(png|jpe?g|svg)$/,
-		);
-		const fileNames = imageFiles.keys();
-
-		for (let i = 0; i < fileNames.length; i++) {
-			if (filePattern(unicode).test(fileNames[i])) {
-				return imageFiles(fileNames[i]);
-			}
-		}
-	};
 	const createUrl: ICreateUrl = (unicode, { baseUrl, ext }) => `${baseUrl}${unicode}.${ext}`;
 
-	return (
-		<span className={classNames(Styles.emoji, className)}>
-			<img src={getImageSrc(emojiToUnicode(emoji))} alt={emoji} />
-		</span>
-	);
+	return <span className={classNames(Styles.emoji, className)}>{emoji}</span>;
 };
