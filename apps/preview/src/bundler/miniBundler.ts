@@ -2,8 +2,6 @@ import * as babel from '@babel/standalone';
 import * as acorn from 'acorn';
 import * as walk from 'acorn-walk';
 import * as path from 'path-browserify';
-
-console.log('hey');
 interface IFile {
   path: string;
   content: string;

@@ -2,6 +2,8 @@ import debounce from './utils/debounce';
 import { bundle } from './bundler/miniBundler';
 
 function handleMessage(e): void {
+  console.log('Preview is connected');
+
   const { files, entryFilePath } = e.data;
 
   if (!files) return;

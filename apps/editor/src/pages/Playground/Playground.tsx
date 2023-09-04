@@ -7,6 +7,7 @@ import Styles from './Playground.module.scss';
 import { getEnvVariable } from '../../utils/getEnvVariable';
 
 const previewUrl = getEnvVariable('PREVIEW_URL');
+console.log(previewUrl);
 
 export const Playground = () => {
 	const previewFrame = useRef<HTMLIFrameElement>(null);
