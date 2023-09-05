@@ -15,6 +15,17 @@ export const usePlayground = () => {
 		dispatch(playgroundActions.setInitialProject(initialProjectData));
 	}, []);
 
+	// Open index.html when playground is loaded
+	useEffect(() => {
+		if (!activeProject) return;
+		const indexHtmlFileId = Object.values(projects[activeProject].files).find(
+			file => file.name === 'index.html',
+		);
+		if (indexHtmlFileId) {
+			dispatch(playgroundActions.addSelectedFile(indexHtmlFileId.id));
+		}
+	}, [initialProject]);
+
 	const menuItems = [
 		{
 			iconName: 'add-file',

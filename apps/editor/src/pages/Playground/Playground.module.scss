@@ -17,4 +17,26 @@
     overflow: hidden;
     background: $gray-800;
   }
+
+  .editContainer {
+    display: flex;
+    height: calc(100% - 3.5rem);
+  }
+
+  .previewContainer {
+    display: flex;
+    width: 40%;
+    flex-direction: column;
+  }
+
+  .iframe {
+    border: none;
+    flex-grow: 1;
+    background-color: #fff;
+  }
+
+  .consoleWrapper {
+    overflow-y: auto;
+    height: 40%;
+  }
 }

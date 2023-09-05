@@ -1,5 +1,10 @@
 import debounce from './utils/debounce';
 import { bundle } from './bundler/miniBundler';
+import { Hook, Decode } from 'console-feed';
+
+Hook(window.console, log => {
+  window.parent.postMessage({ type: 'LOG', log: Decode(log) }, '*');
+});
 
 function handleMessage(e): void {
   console.log('Preview is connected');
