@@ -16,6 +16,17 @@ const playgroundSlice = createSlice({
 			const projectIds = Object.keys(projects);
 			state.projects[projectIds[0]] = projects[projectIds[0]];
 			state.activeProject = projectIds[0];
+
+			// Open index.html on editor once state is initialized
+			const indexHtmlFile = Object.values(projects[state.activeProject].files).find(
+				file => file.name === 'index.html',
+			);
+			if (indexHtmlFile) {
+				state.selectedFiles.push({
+					id: indexHtmlFile.id,
+					isActive: true,
+				});
+			}
 		},
 		addFile: (
 			state,

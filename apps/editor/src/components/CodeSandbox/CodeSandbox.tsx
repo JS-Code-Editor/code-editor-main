@@ -14,6 +14,8 @@ interface ICodeSandboxProps {
 	isPreviewLoaded: boolean;
 }
 
+let oldFileId: null | string = null;
+
 export const CodeSandbox: FC<ICodeSandboxProps> = ({ activeFileId, iframe, isPreviewLoaded }) => {
 	const monaco = useMonaco();
 	const { projects, activeProject } = useAppSelector(s => s.playgroundReducer);
@@ -28,8 +30,7 @@ export const CodeSandbox: FC<ICodeSandboxProps> = ({ activeFileId, iframe, isPre
 			setTheme('merbivore-soft');
 		}
 	}, [monaco]);
-
-	useEffect(() => {
+	const emitCode = () => {
 		const currentProject = projects[activeProject as string];
 		if (currentProject && isPreviewLoaded) {
 			const transformedFiles = transformProjectFiles(currentProject);
@@ -42,7 +43,21 @@ export const CodeSandbox: FC<ICodeSandboxProps> = ({ activeFileId, iframe, isPre
 				'*',
 			);
 		}
-	}, [file, isPreviewLoaded]);
+	};
+
+	useEffect(() => {
+		emitCode();
+	}, [isPreviewLoaded]);
+
+	// To prevent emitting code when new file is opened
+	useEffect(() => {
+		const currentFileId = file && file.id;
+		if (currentFileId === oldFileId) {
+			emitCode();
+		}
+
+		oldFileId = currentFileId || null;
+	}, [file]);
 
 	const language = useMemo(() => {
 		if (file) {
