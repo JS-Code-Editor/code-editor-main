@@ -19,5 +19,5 @@ yarn format
 # Adding dependency
 From the root path, run
 ```
-yarn workspace=<project> add <library>
+yarn workspace <workspace> add <package>
 ```
