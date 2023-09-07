@@ -46,6 +46,7 @@ export const FileName: FC<{
 
 	return (
 		<li
+			onBlur={() => setIsEditing(false)}
 			onDoubleClick={onDoubleClick}
 			onClick={(e: MouseEvent<HTMLLIElement>) => e.stopPropagation()}
 			style={setFilePaddingStyle(padding)}
