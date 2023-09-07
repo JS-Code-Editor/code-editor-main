@@ -8,6 +8,8 @@ import { setFilePaddingStyle } from '../helper/helper';
 import Styles from '../Folder.module.scss';
 import { useAppDispatch } from '../../../hooks';
 import { playgroundActions } from '../../../store/reducers';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 export const FileName: FC<{
 	file: IFile;
@@ -46,7 +48,10 @@ export const FileName: FC<{
 
 	return (
 		<li
-			onBlur={() => setIsEditing(false)}
+			onBlur={() => {
+				setIsEditing(false);
+				setEditFileName(file.name);
+			}}
 			onDoubleClick={onDoubleClick}
 			onClick={(e: MouseEvent<HTMLLIElement>) => e.stopPropagation()}
 			style={setFilePaddingStyle(padding)}
@@ -71,7 +76,7 @@ export const FileName: FC<{
 					>
 						<input value={editFileName} onChange={e => setEditFileName(e.target.value)} autoFocus />
 						<button type='submit'>
-							<i className='icon-edit' />
+							<FontAwesomeIcon icon={faCheckCircle} />
 						</button>
 					</form>
 				)}

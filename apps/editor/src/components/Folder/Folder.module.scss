@@ -79,12 +79,9 @@
 				background-color: inherit;
 				border: none;
 				cursor: pointer;
-				i:before {
-					color: $gray-300;
-					font-size: var(--font-size-sm);
-				}
-
-				i:hover:before {
+				color: $gray-300;
+				font-size: var(--font-size-m);
+				&:hover {
 					color: $primary-teal;
 				}
 			}
