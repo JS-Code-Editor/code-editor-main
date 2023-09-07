@@ -15,6 +15,8 @@ export const FileName: FC<{
 	onDoubleClick: IHandleClickOnFile;
 }> = ({ file, padding, onDoubleClick }) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const [isEditing, setIsEditing] = useState(false);
+	const [editFileName, setEditFileName] = useState(file.name);
 	const dispatch = useAppDispatch();
 
 	const deleteFile = () => {
@@ -25,15 +27,20 @@ export const FileName: FC<{
 		);
 	};
 
+	const initEditFile = () => {
+		setIsEditing(true);
+	};
+
 	const editFile = () => {
-		const newFileName = window.prompt('Edit file name', file.name);
-		if (newFileName) {
+		if (editFileName) {
 			dispatch(
 				playgroundActions.editFileName({
-					newFilename: newFileName,
+					newFilename: editFileName,
 					fileId: file.id,
 				}),
 			);
+
+			setIsEditing(false);
 		}
 	};
 
@@ -42,7 +49,7 @@ export const FileName: FC<{
 			onDoubleClick={onDoubleClick}
 			onClick={(e: MouseEvent<HTMLLIElement>) => e.stopPropagation()}
 			style={setFilePaddingStyle(padding)}
-			className={Styles.file}
+			className={classNames(Styles.file, isEditing && Styles.fileEditing)}
 			onMouseEnter={() => {
 				setIsMenuOpen(true);
 			}}
@@ -52,17 +59,31 @@ export const FileName: FC<{
 		>
 			<div className={classNames(Styles.fileName, 'truncate')}>
 				<i className={classNames(Styles.iconFile, 'icon-file')} />
-				<span className='truncate'>{file.name}</span>
+				{!isEditing && <span className='truncate'>{file.name}</span>}
+				{isEditing && (
+					<form
+						className={classNames(Styles.editForm)}
+						onSubmit={e => {
+							e.preventDefault();
+							editFile();
+						}}
+					>
+						<input value={editFileName} onChange={e => setEditFileName(e.target.value)} autoFocus />
+						<button type='submit'>
+							<i className='icon-edit' />
+						</button>
+					</form>
+				)}
 			</div>
 
-			{isMenuOpen && (
+			{isMenuOpen && !isEditing && (
 				<Menu
 					menuItems={[
 						{
 							iconName: 'edit',
 							handler: e => {
 								e.stopPropagation();
-								editFile();
+								isEditing ? editFile() : initEditFile();
 							},
 						},
 						{
