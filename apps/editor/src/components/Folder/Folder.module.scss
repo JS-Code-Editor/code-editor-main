@@ -17,7 +17,7 @@
 		justify-content: space-between;
 		gap: 0.25rem;
 
-		&.fileEditing,
+		&.editing,
 		&:hover {
 			background-color: $dark-teal;
 			div {
@@ -33,6 +33,10 @@
 		margin-left: -0.1rem;
 
 		.folderName {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			
 			.iconExpandFolder {
 				padding-right: 0.5rem;
 				margin-left: 0.1rem;
@@ -51,6 +55,25 @@
 
 			.iconFolder {
 				padding-right: 0.375rem;
+			}
+
+			.editForm {
+				input {
+					outline: none;
+					border: none;
+					background-color: $dark-teal;
+					color: $primary-teal;
+				}
+				button {
+					background-color: inherit;
+					border: none;
+					cursor: pointer;
+					color: $gray-300;
+					font-size: var(--font-size-m);
+					&:hover {
+						color: $primary-teal;
+					}
+				}
 			}
 		}
 	}

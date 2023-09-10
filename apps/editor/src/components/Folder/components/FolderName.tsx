@@ -13,7 +13,7 @@ export const FolderName: FC<{
 	onAddFolder: () => void;
 	onAddFile: () => void;
 	onDeleteFolder: () => void;
-	onEditFolder: () => void;
+	onEditFolder: (editFolderName: string) => void;
 }> = ({
 	folderName,
 	expanded,
@@ -25,12 +25,26 @@ export const FolderName: FC<{
 	onEditFolder,
 }) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const [isEditing, setIsEditing] = useState(false);
+	const [editFolderName, setEditFolderName] = useState(folderName);
+
+	const initEditFolder = () => {
+		setIsEditing(true);
+	};
+
+	const editFolder = () => {
+		onEditFolder(editFolderName);
+		setIsEditing(false);
+	};
 
 	return (
 		<div
-			className={Styles.folder}
+			onBlur={editFolder}
+			className={classNames(Styles.folder, isEditing && Styles.editing)}
 			style={setFolderPaddingStyle(padding)}
-			onClick={() => clickHandler()}
+			onClick={() => {
+				!isEditing && clickHandler();
+			}}
 			onMouseEnter={() => setIsMenuOpen(true)}
 			onMouseLeave={() => setIsMenuOpen(false)}
 		>
@@ -47,16 +61,31 @@ export const FolderName: FC<{
 				<span>
 					<i className={classNames(Styles.iconFolder, 'icon-folder')} />
 				</span>
-				<span className='truncate'>{folderName}</span>
+				{!isEditing && <span className='truncate'>{folderName}</span>}
+				{isEditing && (
+					<form
+						className={classNames(Styles.editForm)}
+						onSubmit={e => {
+							e.preventDefault();
+							editFolder();
+						}}
+					>
+						<input
+							value={editFolderName}
+							onChange={e => setEditFolderName(e.target.value)}
+							autoFocus
+						/>
+					</form>
+				)}
 			</div>
-			{isMenuOpen && (
+			{isMenuOpen && !isEditing && (
 				<Menu
 					menuItems={[
 						{
 							iconName: 'edit',
 							handler: e => {
 								e.stopPropagation();
-								onEditFolder();
+								initEditFolder();
 							},
 						},
 						{
