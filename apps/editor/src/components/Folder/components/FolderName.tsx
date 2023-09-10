@@ -1,9 +1,10 @@
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import classNames from 'classnames';
 import { Menu } from './Menu';
 import { setFolderPaddingStyle } from '../helper/helper';
 import { IHandleClickOnFolder } from '../types';
 import Styles from '../Folder.module.scss';
+import { EditForm } from '../../EditForm';
 
 export const FolderName: FC<{
 	folderName: string;
@@ -13,7 +14,7 @@ export const FolderName: FC<{
 	onAddFolder: () => void;
 	onAddFile: () => void;
 	onDeleteFolder: () => void;
-	onEditFolder: (editFolderName: string) => void;
+	onEditFolder: (newFolderName: string) => void;
 }> = ({
 	folderName,
 	expanded,
@@ -26,24 +27,24 @@ export const FolderName: FC<{
 }) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
-	const [editFolderName, setEditFolderName] = useState(folderName);
+	const [newFolderName, setNewFolderName] = useState(folderName);
 
 	const initEditFolder = () => {
 		setIsEditing(true);
 	};
 
 	const editFolder = () => {
-		onEditFolder(editFolderName);
+		onEditFolder(newFolderName);
 		setIsEditing(false);
 	};
 
 	return (
 		<div
 			onBlur={editFolder}
-			className={classNames(Styles.folder, isEditing && Styles.editing)}
+			className={classNames(Styles.folder, { [Styles.editing]: isEditing })}
 			style={setFolderPaddingStyle(padding)}
 			onClick={() => {
-				!isEditing && clickHandler();
+				clickHandler();
 			}}
 			onMouseEnter={() => setIsMenuOpen(true)}
 			onMouseLeave={() => setIsMenuOpen(false)}
@@ -61,21 +62,17 @@ export const FolderName: FC<{
 				<span>
 					<i className={classNames(Styles.iconFolder, 'icon-folder')} />
 				</span>
-				{!isEditing && <span className='truncate'>{folderName}</span>}
-				{isEditing && (
-					<form
-						className={classNames(Styles.editForm)}
+				{isEditing ? (
+					<EditForm
 						onSubmit={e => {
 							e.preventDefault();
 							editFolder();
 						}}
-					>
-						<input
-							value={editFolderName}
-							onChange={e => setEditFolderName(e.target.value)}
-							autoFocus
-						/>
-					</form>
+						value={newFolderName}
+						onChange={e => setNewFolderName(e.target.value)}
+					/>
+				) : (
+					<span className='truncate'>{folderName}</span>
 				)}
 			</div>
 			{isMenuOpen && !isEditing && (

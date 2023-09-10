@@ -23,11 +23,11 @@ export const Folder: FC<IFolderProps> = ({ project, padding, id }) => {
 		}
 	};
 
-	const editFolder = (editFolderName: string) => {
-		if (editFolderName) {
+	const editFolder = (newFolderName: string) => {
+		if (newFolderName) {
 			dispatch(
 				playgroundActions.editFolderName({
-					newFolderName: editFolderName,
+					newFolderName: newFolderName,
 					folderId: id,
 				}),
 			);

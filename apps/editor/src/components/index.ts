@@ -7,3 +7,4 @@ export * from './Typography';
 export * from './FileNavigation';
 export * from './Folder/components/Menu';
 export * from './CodeSandbox';
+export * from './EditForm';
