@@ -19,7 +19,7 @@ export const Playground = () => {
 	useEffect(() => {
 		const handleMessage = (event: MessageEvent) => {
 			if (event.origin !== previewUrl) return;
-			if (event.data.type === 'LOG') {
+			if (event.data.type === 'LOG' || event.data.type === 'ERROR') {
 				setLogs(logs => [...logs, event.data.log]);
 			}
 		};
