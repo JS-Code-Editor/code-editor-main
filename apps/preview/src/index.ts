@@ -1,4 +1,4 @@
-import debounce from './utils/debounce';
+import { debounce } from './utils';
 import { bundle } from './bundler/miniBundler';
 import { Hook, Decode } from 'console-feed';
 
@@ -31,7 +31,9 @@ function handleMessage(e): void {
 
   // Adding Js
   const bundledJs = bundle(files, entryFilePath);
-  eval(bundledJs);
+  if (bundledJs) {
+    eval(bundledJs);
+  }
 }
 
 window.addEventListener('message', handleMessage, { once: true });
