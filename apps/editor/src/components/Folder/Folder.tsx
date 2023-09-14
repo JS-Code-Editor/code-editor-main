@@ -23,8 +23,7 @@ export const Folder: FC<IFolderProps> = ({ project, padding, id }) => {
 		}
 	};
 
-	const editFolder = () => {
-		const newFolderName = window.prompt('Edit folder name', name as string);
+	const editFolder = (newFolderName: string) => {
 		if (newFolderName) {
 			dispatch(
 				playgroundActions.editFolderName({

@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useState } from 'react';
+import React, { FC, MouseEvent, useState } from 'react';
 import classNames from 'classnames';
 import { IFile } from 'store/reducers/playgroundReducer/types';
 import { IHandleClickOnFile } from '../types';
@@ -8,6 +8,7 @@ import { setFilePaddingStyle } from '../helper/helper';
 import Styles from '../Folder.module.scss';
 import { useAppDispatch } from '../../../hooks';
 import { playgroundActions } from '../../../store/reducers';
+import { EditForm } from '../../EditForm';
 
 export const FileName: FC<{
 	file: IFile;
@@ -15,6 +16,8 @@ export const FileName: FC<{
 	onDoubleClick: IHandleClickOnFile;
 }> = ({ file, padding, onDoubleClick }) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const [isEditing, setIsEditing] = useState(false);
+	const [newFileName, setNewFileName] = useState(file.name);
 	const dispatch = useAppDispatch();
 
 	const deleteFile = () => {
@@ -25,8 +28,12 @@ export const FileName: FC<{
 		);
 	};
 
+	const initEditFile = () => {
+		setIsEditing(true);
+	};
+
 	const editFile = () => {
-		const newFileName = window.prompt('Edit file name', file.name);
+		setIsEditing(false);
 		if (newFileName) {
 			dispatch(
 				playgroundActions.editFileName({
@@ -34,15 +41,18 @@ export const FileName: FC<{
 					fileId: file.id,
 				}),
 			);
+		} else {
+			setNewFileName(file.name);
 		}
 	};
 
 	return (
 		<li
+			onBlur={editFile}
 			onDoubleClick={onDoubleClick}
 			onClick={(e: MouseEvent<HTMLLIElement>) => e.stopPropagation()}
 			style={setFilePaddingStyle(padding)}
-			className={Styles.file}
+			className={classNames(Styles.file, { [Styles.editing]: isEditing })}
 			onMouseEnter={() => {
 				setIsMenuOpen(true);
 			}}
@@ -52,17 +62,29 @@ export const FileName: FC<{
 		>
 			<div className={classNames(Styles.fileName, 'truncate')}>
 				<i className={classNames(Styles.iconFile, 'icon-file')} />
-				<span className='truncate'>{file.name}</span>
+				{isEditing ? (
+					<EditForm
+						onSaveEdit={editFile}
+						value={newFileName}
+						onChange={e => setNewFileName(e.target.value)}
+						onCancelEdit={() => {
+							setIsEditing(false);
+							setNewFileName(file.name);
+						}}
+					/>
+				) : (
+					<span className='truncate'>{file.name}</span>
+				)}
 			</div>
 
-			{isMenuOpen && (
+			{isMenuOpen && !isEditing && (
 				<Menu
 					menuItems={[
 						{
 							iconName: 'edit',
 							handler: e => {
 								e.stopPropagation();
-								editFile();
+								initEditFile();
 							},
 						},
 						{

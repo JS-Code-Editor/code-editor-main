@@ -1,70 +1,94 @@
 @import '../../mainStyles/variables';
 
 .folderTree {
-  list-style: none;
-  user-select: none;
-  padding-left: 0;
+	list-style: none;
+	user-select: none;
+	padding-left: 0;
 
-  .folder,
-  .file {
-    padding: 0.5rem 0.5rem;
-    cursor: pointer;
-    font-size: var(--font-size-sm);
-    border-radius: $border-radius-6;
-    transition: background-color 0.2s ease-in-out;
+	.editForm {
+		input {
+			outline: none;
+			border: none;
+			background-color: $dark-teal;
+			color: $primary-teal;
+		}
+		button {
+			background-color: inherit;
+			border: none;
+			cursor: pointer;
+			color: $gray-300;
+			font-size: var(--font-size-m);
+			&:hover {
+				color: $primary-teal;
+			}
+		}
+	}
 
-    display: flex;
-    justify-content: space-between;
-    gap: 0.25rem;
+	.folder,
+	.file {
+		padding: 0.5rem 0.5rem;
+		cursor: pointer;
+		font-size: var(--font-size-sm);
+		border-radius: $border-radius-6;
+		transition: background-color 0.2s ease-in-out;
 
-    &:hover {
-      background-color: $dark-teal;
-      div {
-        color: $primary-teal;
-        i:before {
-          color: $primary-teal;
-        }
-      }
-    }
-  }
+		display: flex;
+		justify-content: space-between;
+		gap: 0.25rem;
 
-  .folder {
-    margin-left: -0.1rem;
+		&.editing,
+		&:hover {
+			background-color: $dark-teal;
+			div {
+				color: $primary-teal;
+				i:before {
+					color: $primary-teal;
+				}
+			}
+		}
+	}
 
-    .folderName {
-      .iconExpandFolder {
-        padding-right: 0.5rem;
-        margin-left: 0.1rem;
-        font-size: var(--font-size-xxs);
+	.folder {
+		margin-left: -0.1rem;
 
-        &:before {
-          display: inline-block;
-          transform: rotate(0deg);
-          transition: transform 0.16s ease-in-out;
-        }
+		.folderName {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
 
-        &.opened:before {
-          transform: rotate(90deg);
-        }
-      }
+			.iconExpandFolder {
+				padding-right: 0.5rem;
+				margin-left: 0.1rem;
+				font-size: var(--font-size-xxs);
 
-      .iconFolder {
-        padding-right: 0.375rem;
-      }
-    }
-  }
+				&:before {
+					display: inline-block;
+					transform: rotate(0deg);
+					transition: transform 0.16s ease-in-out;
+				}
 
-  .selectedFile {
-    background-color: $gray-800;
-  }
+				&.opened:before {
+					transform: rotate(90deg);
+				}
+			}
 
-  .fileName {
-    display: flex;
-    align-items: center;
+			.iconFolder {
+				padding-right: 0.375rem;
+			}
+		}
+	}
 
-    .iconFile {
-      padding-right: 0.5rem;
-      font-size: var(--font-size-m);
-    }
-  }
+	.selectedFile {
+		background-color: $gray-800;
+	}
+
+	.fileName {
+		display: flex;
+		align-items: center;
+
+		.iconFile {
+			padding-right: 0.5rem;
+			font-size: var(--font-size-m);
+		}
+	}
 }

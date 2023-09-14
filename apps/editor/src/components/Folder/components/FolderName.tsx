@@ -1,9 +1,10 @@
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import classNames from 'classnames';
 import { Menu } from './Menu';
 import { setFolderPaddingStyle } from '../helper/helper';
 import { IHandleClickOnFolder } from '../types';
 import Styles from '../Folder.module.scss';
+import { EditForm } from '../../EditForm';
 
 export const FolderName: FC<{
 	folderName: string;
@@ -13,7 +14,7 @@ export const FolderName: FC<{
 	onAddFolder: () => void;
 	onAddFile: () => void;
 	onDeleteFolder: () => void;
-	onEditFolder: () => void;
+	onEditFolder: (newFolderName: string) => void;
 }> = ({
 	folderName,
 	expanded,
@@ -25,12 +26,26 @@ export const FolderName: FC<{
 	onEditFolder,
 }) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const [isEditing, setIsEditing] = useState(false);
+	const [newFolderName, setNewFolderName] = useState(folderName);
+
+	const initEditFolder = () => {
+		setIsEditing(true);
+	};
+
+	const editFolder = () => {
+		setIsEditing(false);
+		if (!newFolderName) {
+			return setNewFolderName(folderName);
+		}
+		onEditFolder(newFolderName);
+	};
 
 	return (
 		<div
-			className={Styles.folder}
+			className={classNames(Styles.folder, { [Styles.editing]: isEditing })}
 			style={setFolderPaddingStyle(padding)}
-			onClick={() => clickHandler()}
+			onClick={clickHandler}
 			onMouseEnter={() => setIsMenuOpen(true)}
 			onMouseLeave={() => setIsMenuOpen(false)}
 		>
@@ -47,16 +62,28 @@ export const FolderName: FC<{
 				<span>
 					<i className={classNames(Styles.iconFolder, 'icon-folder')} />
 				</span>
-				<span className='truncate'>{folderName}</span>
+				{isEditing ? (
+					<EditForm
+						onSaveEdit={editFolder}
+						value={newFolderName}
+						onCancelEdit={() => {
+							setIsEditing(false);
+							setNewFolderName(folderName);
+						}}
+						onChange={e => setNewFolderName(e.target.value)}
+					/>
+				) : (
+					<span className='truncate'>{folderName}</span>
+				)}
 			</div>
-			{isMenuOpen && (
+			{isMenuOpen && !isEditing && (
 				<Menu
 					menuItems={[
 						{
 							iconName: 'edit',
 							handler: e => {
 								e.stopPropagation();
-								onEditFolder();
+								initEditFolder();
 							},
 						},
 						{
