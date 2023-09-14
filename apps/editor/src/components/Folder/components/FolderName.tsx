@@ -34,18 +34,18 @@ export const FolderName: FC<{
 	};
 
 	const editFolder = () => {
-		onEditFolder(newFolderName);
 		setIsEditing(false);
+		if (!newFolderName) {
+			return setNewFolderName(folderName);
+		}
+		onEditFolder(newFolderName);
 	};
 
 	return (
 		<div
-			onBlur={editFolder}
 			className={classNames(Styles.folder, { [Styles.editing]: isEditing })}
 			style={setFolderPaddingStyle(padding)}
-			onClick={() => {
-				clickHandler();
-			}}
+			onClick={clickHandler}
 			onMouseEnter={() => setIsMenuOpen(true)}
 			onMouseLeave={() => setIsMenuOpen(false)}
 		>
@@ -64,11 +64,12 @@ export const FolderName: FC<{
 				</span>
 				{isEditing ? (
 					<EditForm
-						onSubmit={e => {
-							e.preventDefault();
-							editFolder();
-						}}
+						onSaveEdit={editFolder}
 						value={newFolderName}
+						onCancelEdit={() => {
+							setIsEditing(false);
+							setNewFolderName(folderName);
+						}}
 						onChange={e => setNewFolderName(e.target.value)}
 					/>
 				) : (

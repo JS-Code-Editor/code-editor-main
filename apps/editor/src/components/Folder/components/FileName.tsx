@@ -33,6 +33,7 @@ export const FileName: FC<{
 	};
 
 	const editFile = () => {
+		setIsEditing(false);
 		if (newFileName) {
 			dispatch(
 				playgroundActions.editFileName({
@@ -40,8 +41,8 @@ export const FileName: FC<{
 					fileId: file.id,
 				}),
 			);
-
-			setIsEditing(false);
+		} else {
+			setNewFileName(file.name);
 		}
 	};
 
@@ -63,12 +64,13 @@ export const FileName: FC<{
 				<i className={classNames(Styles.iconFile, 'icon-file')} />
 				{isEditing ? (
 					<EditForm
-						onSubmit={e => {
-							e.preventDefault();
-							editFile();
-						}}
+						onSaveEdit={editFile}
 						value={newFileName}
 						onChange={e => setNewFileName(e.target.value)}
+						onCancelEdit={() => {
+							setIsEditing(false);
+							setNewFileName(file.name);
+						}}
 					/>
 				) : (
 					<span className='truncate'>{file.name}</span>
