@@ -2,6 +2,8 @@ import * as babel from '@babel/standalone';
 import * as acorn from 'acorn';
 import * as walk from 'acorn-walk';
 import * as path from 'path-browserify';
+import { ModuleNotFoundError } from '../utils/';
+
 interface IFile {
   path: string;
   content: string;
@@ -68,13 +70,15 @@ function createGraph(entry: IFile, jsFiles: IFile[]): IAsset[] {
         const normalizedPath = path.normalize(file.path);
         return normalizedPath === fullPath || normalizedPath === `${fullPath}/`;
       });
-      // @ts-expect-error
+
+      if (dependencyFile == null) {
+        throw new ModuleNotFoundError(fullPath, asset.path.slice(0, -1));
+      }
+
       const dependencyAsset = createAsset(dependencyFile);
       asset.mapping[dependencyPath] = dependencyAsset.id;
 
       queue.push(dependencyAsset);
-
-      return null;
     });
   }
 
@@ -83,14 +87,15 @@ function createGraph(entry: IFile, jsFiles: IFile[]): IAsset[] {
 
 // Creates a bundle
 function bundle(JsFiles: IFile[], entryFilePath: string): string {
-  const entryFile = JsFiles.find(file => file.path === entryFilePath);
-  if (entryFile == null) throw new Error('Entry file not found!');
+  try {
+    const entryFile = JsFiles.find(file => file.path === entryFilePath);
+    if (entryFile == null) throw new Error('Entry file not found!');
 
-  const graph = createGraph(entryFile, JsFiles);
-  let modules = '';
+    const graph = createGraph(entryFile, JsFiles);
+    let modules = '';
 
-  graph.forEach(module => {
-    modules += `
+    graph.forEach(module => {
+      modules += `
       ${module.id}: [
         function(require, module, exports) {
           ${module.code}
@@ -98,30 +103,34 @@ function bundle(JsFiles: IFile[], entryFilePath: string): string {
         ${JSON.stringify(module.mapping)}
       ],
     `;
-  });
+    });
 
-  const result = `
-    (function(modules){
-      function require(id) {
-        const [fn, mapping] = modules[id];
-        
-        function localRequire(relativePath) {
-          return require(mapping[relativePath]);
+    const result = `
+      (function(modules){
+        function require(id) {
+          const [fn, mapping] = modules[id];
+          
+          function localRequire(relativePath) {
+            return require(mapping[relativePath]);
+          }
+          
+          const module = { exports: {} };
+          
+          fn(localRequire, module, module.exports);
+          
+          return module.exports;
         }
         
-        const module = { exports: {} };
-        
-        fn(localRequire, module, module.exports);
-        
-        return module.exports;
-      }
-      
-      require(0)
-    })({ ${modules} });
-  `;
+        require(0)
+      })({ ${modules} });
+    `;
 
-  ID = 0;
-  return result;
+    ID = 0;
+    return result;
+  } catch (err) {
+    ID = 0;
+    throw err;
+  }
 }
 
 export { bundle };

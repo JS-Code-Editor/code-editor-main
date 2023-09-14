@@ -1,7 +1,14 @@
-import debounce from './utils/debounce';
+import { debounce } from './utils';
 import { bundle } from './bundler/miniBundler';
 import { Hook, Decode } from 'console-feed';
 
+window.onerror = function (message, source, lineno, colno, error) {
+  const errorLog = {
+    method: 'error',
+    data: [message as string, '__console_feed_remaining__0'],
+  };
+  window.parent.postMessage({ type: 'ERROR', log: Decode([errorLog]) }, '*');
+};
 Hook(window.console, log => {
   window.parent.postMessage({ type: 'LOG', log: Decode(log) }, '*');
 });
@@ -24,7 +31,9 @@ function handleMessage(e): void {
 
   // Adding Js
   const bundledJs = bundle(files, entryFilePath);
-  eval(bundledJs);
+  if (bundledJs) {
+    eval(bundledJs);
+  }
 }
 
 window.addEventListener('message', handleMessage, { once: true });
