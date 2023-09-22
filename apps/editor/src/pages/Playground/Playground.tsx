@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { MouseEvent, useEffect, useRef, useState } from 'react';
 import { CodeSandbox, FileNavigation, Folder, MainPageWrapper, Menu } from '../../components';
 import { TREE_INDENTATION } from '../../utils/constants/constants';
 import { usePlayground } from './hooks/usePlayground';
@@ -13,6 +13,9 @@ export const Playground = () => {
 	const previewFrame = useRef<HTMLIFrameElement>(null);
 	const [previewLoaded, setPreviewLoaded] = useState(false);
 	const consoleRef = useRef<HTMLDivElement>(null);
+
+	const [folderStructureWidth, setFolderStructureWidth] = useState(300);
+	const [isResizing, setIsResizing] = useState(false);
 
 	const [logs, setLogs] = useState<any[]>([]);
 
@@ -39,9 +42,24 @@ export const Playground = () => {
 		}
 	}, [logs]);
 
+	const handleResize = (event: MouseEvent<HTMLDivElement>) => {
+		if (isResizing) {
+			setFolderStructureWidth(prev => prev + event.movementX);
+		}
+	};
+
 	return (
-		<MainPageWrapper className={Styles.playgroundContainer}>
-			<section className={Styles.folderStructure}>
+		<MainPageWrapper
+			mouseDownHandler={event => {
+				if ((event.target as Element).id === 'resizer') {
+					setIsResizing(true);
+				}
+			}}
+			mouseUpHandler={() => setIsResizing(false)}
+			mouseMoveHandler={handleResize}
+			className={Styles.playgroundContainer}
+		>
+			<section className={Styles.folderStructure} style={{ width: `${folderStructureWidth}px` }}>
 				<Menu menuItems={menuItems} />
 				{initialProject && (
 					<Folder
@@ -50,8 +68,12 @@ export const Playground = () => {
 						padding={TREE_INDENTATION}
 					/>
 				)}
+				<div id='resizer' className={Styles.resizer}></div>
 			</section>
-			<section className={Styles.playground}>
+			<section
+				className={Styles.playground}
+				style={{ width: `calc(100% - ${folderStructureWidth}px)` }}
+			>
 				<FileNavigation />
 				<div className={Styles.editContainer}>
 					<CodeSandbox
