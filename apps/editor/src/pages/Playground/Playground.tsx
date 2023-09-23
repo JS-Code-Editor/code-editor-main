@@ -15,7 +15,7 @@ export const Playground = () => {
 	const [previewLoaded, setPreviewLoaded] = useState(false);
 	const consoleRef = useRef<HTMLDivElement>(null);
 
-	const [folderStructureWidth, resizeBegin, resizeEnd, resize] = useResize(300);
+	const [isFolderShown, folderStructureWidth, resizeBegin, resizeEnd, resize] = useResize(250, 80);
 
 	const [logs, setLogs] = useState<any[]>([]);
 
@@ -55,20 +55,22 @@ export const Playground = () => {
 			onMouseMove={handleResize}
 			className={Styles.playgroundContainer}
 		>
-			<section className={Styles.folderStructure} style={{ width: `${folderStructureWidth}px` }}>
-				<Menu menuItems={menuItems} />
-				{initialProject && (
-					<Folder
-						id={initialProject.rootFolder}
-						project={initialProject}
-						padding={TREE_INDENTATION}
-					/>
-				)}
-				<div id='resizer' className={Styles.resizer}></div>
-			</section>
+			{isFolderShown && (
+				<section className={Styles.folderStructure} style={{ width: `${folderStructureWidth}px` }}>
+					<Menu menuItems={menuItems} />
+					{initialProject && (
+						<Folder
+							id={initialProject.rootFolder}
+							project={initialProject}
+							padding={TREE_INDENTATION}
+						/>
+					)}
+				</section>
+			)}
+			<div id='resizer' className={Styles.resizer}></div>
 			<section
 				className={Styles.playground}
-				style={{ width: `calc(100% - ${folderStructureWidth}px)` }}
+				style={{ width: isFolderShown ? `calc(100% - ${folderStructureWidth}px)` : '100%' }}
 			>
 				<FileNavigation />
 				<div className={Styles.editContainer}>

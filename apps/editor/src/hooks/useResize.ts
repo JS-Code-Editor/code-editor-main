@@ -1,10 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const useResize = (
 	initialSize: number,
-): [number, () => void, () => void, (size: number) => void] => {
+	limitation: number,
+): [boolean, number, () => void, () => void, (size: number) => void] => {
+	const [isShown, setIsShown] = useState(true);
 	const [isResizing, setIsResizing] = useState(false);
 	const [size, setSize] = useState(initialSize);
+
+	useEffect(() => {
+		if (size < limitation) {
+			setIsShown(false);
+		} else {
+			setIsShown(true);
+		}
+	}, [size]);
 
 	const resizeBegin = () => setIsResizing(true);
 	const resizeEnd = () => setIsResizing(false);
@@ -13,5 +23,5 @@ export const useResize = (
 		isResizing && setSize(prev => prev + size);
 	};
 
-	return [size, resizeBegin, resizeEnd, resize];
+	return [isShown, size, resizeBegin, resizeEnd, resize];
 };

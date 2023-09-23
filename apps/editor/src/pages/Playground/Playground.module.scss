@@ -9,19 +9,14 @@
     overflow: scroll;
     overflow-y: auto;
     box-sizing: border-box;
-    position: relative;
+  }
 
-    .resizer {
-      width: 3px;
-      height: 100%;
-      position: absolute;
-      right: 0;
-      top: 0;
-      
-      cursor: ew-resize;
-      &:hover, &:active {
-        background-color: $primary-teal;
-      }
+  .resizer {
+    width: 3px;
+    height: 100%;
+    cursor: ew-resize;
+    &:hover, &:active {
+      background-color: $primary-teal;
     }
   }
 
