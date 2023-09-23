@@ -1,23 +1,21 @@
-import { FC } from 'react';
+import { DetailedHTMLProps, FC, HTMLAttributes } from 'react';
 import classNames from 'classnames';
-
-import { IMainPageWrapper } from './types';
 
 import Styles from './MainPageWrapper.module.scss';
 import { SideNavigationBar } from '../SideNavigationBar';
 
-export const MainPageWrapper: FC<IMainPageWrapper> = ({
+export const MainPageWrapper: FC<DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>> = ({
 	children,
 	className,
-	mouseDownHandler,
-	mouseUpHandler,
-	mouseMoveHandler,
+	onMouseDown,
+	onMouseUp,
+	onMouseMove,
 }) => (
 	<main
 		className={Styles.mainPageWrapper}
-		onMouseDown={mouseDownHandler}
-		onMouseUp={mouseUpHandler}
-		onMouseMove={mouseMoveHandler}
+		onMouseDown={onMouseDown}
+		onMouseUp={onMouseUp}
+		onMouseMove={onMouseMove}
 	>
 		<SideNavigationBar />
 		<main className={classNames(Styles.children, className)}>{children}</main>

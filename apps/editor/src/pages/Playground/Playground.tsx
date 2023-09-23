@@ -46,13 +46,13 @@ export const Playground = () => {
 
 	return (
 		<MainPageWrapper
-			mouseDownHandler={event => {
+			onMouseDown={event => {
 				if ((event.target as Element).id === 'resizer') {
 					resizeBegin();
 				}
 			}}
-			mouseUpHandler={resizeEnd}
-			mouseMoveHandler={handleResize}
+			onMouseUp={resizeEnd}
+			onMouseMove={handleResize}
 			className={Styles.playgroundContainer}
 		>
 			<section className={Styles.folderStructure} style={{ width: `${folderStructureWidth}px` }}>
