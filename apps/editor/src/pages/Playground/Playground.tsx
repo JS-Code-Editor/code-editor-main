@@ -6,6 +6,7 @@ import { usePlayground } from './hooks/usePlayground';
 import Styles from './Playground.module.scss';
 import { getEnvVariable } from '../../utils/getEnvVariable';
 import { Console } from 'console-feed';
+import { useResize } from 'hooks';
 
 const previewUrl = getEnvVariable('PREVIEW_URL');
 
@@ -14,8 +15,7 @@ export const Playground = () => {
 	const [previewLoaded, setPreviewLoaded] = useState(false);
 	const consoleRef = useRef<HTMLDivElement>(null);
 
-	const [folderStructureWidth, setFolderStructureWidth] = useState(300);
-	const [isResizing, setIsResizing] = useState(false);
+	const [folderStructureWidth, resizeBegin, resizeEnd, resize] = useResize(300);
 
 	const [logs, setLogs] = useState<any[]>([]);
 
@@ -42,20 +42,16 @@ export const Playground = () => {
 		}
 	}, [logs]);
 
-	const handleResize = (event: MouseEvent<HTMLDivElement>) => {
-		if (isResizing) {
-			setFolderStructureWidth(prev => prev + event.movementX);
-		}
-	};
+	const handleResize = (event: MouseEvent<HTMLDivElement>) => resize(event.movementX);
 
 	return (
 		<MainPageWrapper
 			mouseDownHandler={event => {
 				if ((event.target as Element).id === 'resizer') {
-					setIsResizing(true);
+					resizeBegin();
 				}
 			}}
-			mouseUpHandler={() => setIsResizing(false)}
+			mouseUpHandler={resizeEnd}
 			mouseMoveHandler={handleResize}
 			className={Styles.playgroundContainer}
 		>
